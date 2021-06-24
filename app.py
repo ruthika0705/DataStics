@@ -51,6 +51,19 @@ def crop_recommend():
 
 
 # ===============================================================================================
+@app.route('/crop_predict', methods=['GET'])
+def testt():
+    nitrogen = int(request.args.get("nitrogen"))
+    phosphorous = int(request.args.get('phosphorous'))
+    pottasium = int(request.args.get('pottasium'))
+    temperature = float(request.args.get('temperature'))
+    humidity = float(request.args.get('humidity'))
+    ph_level = float(request.args.get('ph_level'))
+    rainfall = float(request.args.get('rainfall'))
+    result = crop_recommendation_model.predict(
+        [[nitrogen, phosphorous, pottasium, temperature, humidity, ph_level, rainfall]])
+    print(result)
+    return jsonify({"result": str(result[0])}), 200
 
 
 @ app.route('/crop-predict', methods=['POST'])
